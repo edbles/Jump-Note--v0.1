@@ -5,6 +5,8 @@ public class Note : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+		transform.position = new Vector2(Random.Range (-5, 5), Random.Range(-5, 5));
 	
 	}
 	

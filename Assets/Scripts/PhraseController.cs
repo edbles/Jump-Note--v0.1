@@ -2,16 +2,19 @@
 using System.Collections;
 
 public class PhraseController : MonoBehaviour {
-
+	public Note note;
 	// Use this for initialization
 	void Start () {
-
+		InvokeRepeating("SpawnNotes", 1.0f, 1.0f);
 	
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		rigidbody2D.velocity = new Vector2 (0, 0);
-		rigidbody2D.AddForce (new Vector2 (-500, 0));
+
+	}
+
+	void SpawnNotes(){
+			Instantiate (note);
 	}
 }
