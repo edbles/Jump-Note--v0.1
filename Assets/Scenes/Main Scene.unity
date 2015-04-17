@@ -323,7 +323,8 @@ Prefab:
       propertyPath: m_Name
       value: playerB
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 0}
   m_ParentPrefab: {fileID: 100100000, guid: 87a2357765801c34292d6718d8b4d770, type: 2}
   m_RootGameObject: {fileID: 887538511}
   m_IsPrefabParent: 0
@@ -375,7 +376,8 @@ Prefab:
       propertyPath: activationKey
       value: z
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 0}
   m_ParentPrefab: {fileID: 100100000, guid: 87a2357765801c34292d6718d8b4d770, type: 2}
   m_RootGameObject: {fileID: 376288995}
   m_IsPrefabParent: 0
@@ -541,7 +543,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 376288996}
   - 212: {fileID: 376289003}
-  - 95: {fileID: 376289002}
   - 58: {fileID: 376289001}
   - 50: {fileID: 376289000}
   - 114: {fileID: 376288999}
@@ -627,22 +628,6 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_Radius: .0599999987
   m_Center: {x: 0, y: -.0500000007}
---- !u!95 &376289002
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 9500000, guid: 87a2357765801c34292d6718d8b4d770,
-    type: 2}
-  m_PrefabInternal: {fileID: 231734151}
-  m_GameObject: {fileID: 376288995}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: d89ea37480b6d75458aa38843e9688dc, type: 3}
-  m_Controller: {fileID: 9100000, guid: 4decf9f68d8a5ef4f8769f034d34fd53, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 1
-  m_ApplyRootMotion: 0
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!212 &376289003
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1208,7 +1193,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 887538512}
   - 212: {fileID: 887538519}
-  - 95: {fileID: 887538518}
   - 58: {fileID: 887538517}
   - 50: {fileID: 887538516}
   - 114: {fileID: 887538515}
@@ -1294,22 +1278,6 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_Radius: .0599999987
   m_Center: {x: 0, y: -.0500000007}
---- !u!95 &887538518
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 9500000, guid: 87a2357765801c34292d6718d8b4d770,
-    type: 2}
-  m_PrefabInternal: {fileID: 167207421}
-  m_GameObject: {fileID: 887538511}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: d89ea37480b6d75458aa38843e9688dc, type: 3}
-  m_Controller: {fileID: 9100000, guid: 4decf9f68d8a5ef4f8769f034d34fd53, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 1
-  m_ApplyRootMotion: 0
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!212 &887538519
 SpriteRenderer:
   m_ObjectHideFlags: 0
