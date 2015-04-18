@@ -1,6 +1,14 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\HUDScript.cs">
+    <Files>
+      <File FileName="Assets\Conductor.cs" Line="46" Column="6" />
+      <File FileName="Assets\Scripts\Note.cs" Line="75" Column="55" />
+      <File FileName="Assets\GameController.cs" Line="18" Column="2" />
+      <File FileName="Assets\Sample Assets\2D\Scripts\PlatformerCharacter2D.cs" Line="56" Column="3" />
+      <File FileName="Assets\Scripts\HUDScript.cs" Line="26" Column="80" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

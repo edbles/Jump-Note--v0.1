@@ -8,7 +8,7 @@ public class HUDScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	
-		playerScore += Time.deltaTime;
+		//playerScore += Time.deltaTime;
 	}
 	public void IncreaseScore(int amount)
 	{

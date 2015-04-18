@@ -3,7 +3,7 @@
 public class PlatformerCharacter2D : MonoBehaviour 
 {
 	bool facingRight = true;							// For determining which way the player is currently facing.
-
+	public string playerName;
 	[SerializeField] float maxSpeed = 10f;				// The fastest the player can travel in the x axis.
 	[SerializeField] float jumpForce = 400f;			// Amount of force added when the player jumps.	
 
@@ -20,7 +20,8 @@ public class PlatformerCharacter2D : MonoBehaviour
 	float ceilingRadius = .01f;							// Radius of the overlap circle to determine if the player can stand up
 	Animator anim;			
 	[SerializeField] string activationKey;
-	private BoxCollider2D tapDetector;
+	GameObject conductor;
+	private float keyStrikeTime;
 	// Reference to the player's animator component.
 
 	//bool doubleJump = false;
@@ -32,9 +33,8 @@ public class PlatformerCharacter2D : MonoBehaviour
 		ceilingCheck = transform.Find("CeilingCheck");
 		anim = GetComponent<Animator>();
 
-		// Get the box collider attached to this Player
-		tapDetector = gameObject.GetComponent<BoxCollider2D>();
-		tapDetector.enabled = false;
+		conductor = GameObject.FindWithTag ("Conductor");
+
 
 
 	}
@@ -55,11 +55,19 @@ public class PlatformerCharacter2D : MonoBehaviour
 	void Update()
 	{
 		if (Input.GetKeyDown (activationKey)) {
+			keyStrikeTime = conductor.GetComponent<Conductor>().deltaSongPosition;
 			Move (0.0f, false, true);
-			tapDetector.enabled = true;
+			CheckNotes();
+			Debug.Log ("Song Position:" +playerName + keyStrikeTime);
 		} 
-		else {
-			tapDetector.enabled=false;
+	
+	}
+
+	void CheckNotes(){
+
+		GameObject[] notes = GameObject.FindGameObjectsWithTag ("Note");
+		foreach (GameObject noteToken in notes) {
+			noteToken.GetComponent<Note>().CheckTime(keyStrikeTime);		
 		}
 	}
 
