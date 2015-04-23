@@ -5,7 +5,7 @@ using System.Collections;
 public class Note : MonoBehaviour {
 
 	HUDScript hud;
-	public bool isRight;
+	private bool isRight=true;
 	private float buffer;
 
 	private Vector2 endPos;
@@ -14,67 +14,86 @@ public class Note : MonoBehaviour {
 	private GameObject conductor;
 	public float beatNumber;
 	private float beatTimePos;
+	private float direction;
+	private string activationKey;
+	private float crotchet;
+
+	public string activateLeft;
+	public string activateRight;
+
 	private GameObject player;
 	//private float tolerance = .5f;
 	private float tBB;
 	private bool isLaunched;
 
-	public void SetBeat(float beatTime){
+	public void SetBeat(float beatTime, bool leftOrRight){
 
 		beatTimePos = beatTime;
-		//beatNumber = beatNum;
-		startPos = new Vector2(20, 1);
-		//distance = new Vector2 (12.5f+beatTimePos,0.0f);
-		/*
-		if (!isRight) {
-			startPos = new Vector2(-20, 1);
-			speed.x *= -1;
-		}*/
+		isRight = leftOrRight;
+			
+			
+		if (isRight) {
+			direction = -1.0f;
+			activationKey = activateRight;
+			player = GameObject.FindWithTag ("PlayerR");
+			}
+		else {
+			direction = 1.0f;
+			activationKey = activateLeft;
+			player = GameObject.FindWithTag("PlayerL");
+			}
 
-		//transform.position = distance;
+		startPos = new Vector2 (direction*-15.0f, 1.0f);
 
-
-		//tBB = conductor.GetComponent<Conductor>().timeBetweenBeats;
-		//Debug.Log ("TBB:" + tBB);
-		player = GameObject.FindWithTag ("Player");
-		endPos = new Vector2 (player.transform.position.x, 1.0f);
-
-		//beatTimePos = tBB * beatNumber;
-		//isLaunched = false;
-		//Debug.Log ("TBB:" + tBB);
-		//float xSpeed = -1.0f *(distance.x-player.transform.position.x)/ tBB;
-		//rigidbody2D.velocity = new Vector2(xSpeed, 0.0f);
-		
-	}
+		gameObject.transform.position = startPos;
+		gameObject.GetComponent<SpriteRenderer> ().enabled = false;
+		conductor = GameObject.FindWithTag ("Conductor");
+		crotchet = conductor.GetComponent<Conductor>().bpm/60.0f;
+		buffer = conductor.GetComponent<Conductor> ().buffer;
+		}
 
 
 
 	void Update(){
-		conductor = GameObject.FindWithTag ("Conductor");
+	
 		float testPos = conductor.GetComponent<Conductor> ().deltaSongPosition;
-		//Debug.Log ("Beat Time:" + beatTimePos + "deltaSong" + testPos);
-		buffer = conductor.GetComponent<Conductor> ().buffer;
-		//Debug.Log (
 
-		if ((testPos > beatTimePos) && (testPos < beatTimePos + buffer)) {
-			transform.position = endPos;
+	
+		float playerX = player.GetComponent<PlatformerCharacter2D> ().transform.position.x;
+		endPos = new Vector2(playerX, gameObject.transform.position.y);
+		float xSpeed = direction * Mathf.Abs(((startPos.x - endPos.x) / crotchet));
+
+
+		if ((testPos > beatTimePos-(crotchet)) && (testPos < beatTimePos-(crotchet) + buffer)) {
+			rigidbody2D.velocity = new Vector2(xSpeed, 0.0f);
 			gameObject.GetComponent<SpriteRenderer> ().enabled = true;
-						//rigidbody2D.velocity = new Vector2(-5.0f, 0.0f);
-			} 
-		else {
-			gameObject.GetComponent<SpriteRenderer> ().enabled = false;
+						 
 			}
+
+		if (Input.GetKeyDown (activationKey)) {
+			float keyStrikeTime = conductor.GetComponent<Conductor>().deltaSongPosition;
+			//player.GetComponent<PlatformerCharacter2D>().Move (0.0f, false, true);
+			CheckTime(keyStrikeTime);
+
+		} 
 
 	}
 
 
 
 	public void CheckTime(float tapTime){
-		if ((tapTime > beatTimePos) && (tapTime < beatTimePos + buffer)) {
-			GameObject hudScript = GameObject.FindWithTag("HUD");
-			hudScript.GetComponent<HUDScript>().IncreaseScore(1);
-			Destroy (gameObject);
-		}
+
+		//Debug.Log ("TapTime:" + tapTime + "Beat Time" + beatTimePos + "buffer:" + buffer);
+		float withinBuffer = Mathf.Abs (beatTimePos - tapTime);
+
+		if (withinBuffer < buffer) {
+						Debug.Log ("Notes time Position:" + beatTimePos + "Key Strike Time:" + tapTime);
+						GameObject hudScript = GameObject.FindWithTag ("HUD");
+						hudScript.GetComponent<HUDScript> ().IncreaseScore (1);
+						//gameObject.GetComponent <SpriteRenderer>().color = Color.yellow;
+						Destroy (gameObject);
+						
+				} 
 	}
 
 
