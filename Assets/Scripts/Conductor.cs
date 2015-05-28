@@ -14,41 +14,30 @@ public class Conductor : MonoBehaviour {
 	//public Note[] notes = new Note[6];
 	public float timeBetweenBeats;
 	public float lastBeat;
-	private float songLength;
+	public float songLength;
+
+
+	private GameObject phraseController;
 	private int beatNum;
 	private GameObject gc;
-	private float[] notePositions = {3.0f, 3.5f, 4.0f, 4.5f, 5.0f, 5.5f, 6.0f, 6.5f, 7.0f};
+	//private float[] notePositions = {3.0f, 3.5f, 4.0f, 4.5f, 5.0f, 5.5f, 6.0f, 6.5f, 7.0f};
 
 	// Use this for initialization
 	void Start () {
-		//beatNum = 0;
 
-		songLength = gameObject.audio.clip.length;
-		//timeBetweenBeats = 60.0f / bpm;
-		//beatsPerSecond = bpm / 60.0f;
-		//gc = GameObject.FindGameObjectWithTag("GameController");
-		float metronome = 4.0f;
-		int totalBeats = Mathf.RoundToInt ((songLength / .5f) - 4.0f);
+		songLength = gameObject.GetComponent<AudioSource>().clip.length;
+	
 
-		for (int i = 0; i<totalBeats; i++) {
-			Note tempNote;
-			tempNote = Instantiate(note) as Note;
-			bool isRight;
-			if( Random.Range (0.0f, 1.0f)<0.5f){
-				isRight = true;
-			}
-			else{
-				isRight = false;
-			}
-			tempNote.SetBeat(metronome, isRight );
-			metronome+=.5f;
-		
-		}
-		gameObject.audio.Play ();
+		phraseController = GameObject.FindGameObjectWithTag ("PhraseController");
+
+		//Spawns the first 50 phrases and then starts the song playing
+		bool phrasesSpawned = phraseController.GetComponent<PhraseController> ().SpawnPhrases (songLength);
+
+
+
+		gameObject.GetComponent<AudioSource>().Play ();
 		songPosition = (float)AudioSettings.dspTime;
-		
-		//int totalNotes = Mathf.RoundToInt (songLength / timeBetweenBeats);
-		//gc.GetComponent<GameController> ().MakeNotes (totalNotes);
+
 	}
 
 	// Update is called once per frame

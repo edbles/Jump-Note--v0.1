@@ -3,115 +3,107 @@ using System.Collections;
 
 //This is inefficient.
 public class Note : MonoBehaviour {
+	/** Note should habe a time stamp and and array of three bools indicating whether a lane must be active
+	 * 
+	 * */
 
-	HUDScript hud;
-	private bool isRight=true;
-	private float buffer;
+
+	public bool played;
+	private float timeStamp;
 
 	private Vector2 endPos;
 	private Vector2 startPos;
 	private Vector2 distance;
-	private GameObject conductor;
-	public float beatNumber;
-	private float beatTimePos;
-	private float direction;
-	private string activationKey;
-	private float crotchet;
+	public bool isActive = false;
 
-	public string activateLeft;
-	public string activateRight;
+	private int screenZone;
 
-	private GameObject player;
-	//private float tolerance = .5f;
-	private float tBB;
-	private bool isLaunched;
+	public static float laneOne = 2.5f;
+	public static float laneTwo = 0.0f;
+	public static float laneThree = -3.0f;
+	public static float buffer;
+	
+	
 
-	public void SetBeat(float beatTime, bool leftOrRight){
+	public void SetUp(float beatTime, int screenZ){
+		screenZone = screenZ;
+		timeStamp = beatTime;
+		startPos = new Vector2(0.0f , 0.0f);
+		played = false;
+		float angle = 0.0f;
 
-		beatTimePos = beatTime;
-		isRight = leftOrRight;
+		if (screenZone < 4) {
+			angle = 180.0f;
+		}
+
+		switch (screenZone) {
+
+				case 1:
+				case 4: 
+						startPos = new Vector2 (0.0f, laneOne);
+						this.transform.eulerAngles = new Vector3 (0.0f, 0.0f, angle);
+						break;
+				case 2:
+				case 5:
+						startPos = new Vector2 (0.0f, laneTwo);
+						this.transform.eulerAngles = new Vector3 (0.0f, 0.0f, angle);
+						break;
+				case 3:
+				case 6: 
+						startPos = new Vector2 (0.0f, laneThree);
+						this.transform.eulerAngles = new Vector3 (0.0f, 0.0f, angle);
+						break;
+				default:
+						break;
+		}
+
+
 			
-			
-		if (isRight) {
-			direction = -1.0f;
-			activationKey = activateRight;
-			player = GameObject.FindWithTag ("PlayerR");
-			}
-		else {
-			direction = 1.0f;
-			activationKey = activateLeft;
-			player = GameObject.FindWithTag("PlayerL");
-			}
-
-		startPos = new Vector2 (direction*-15.0f, 1.0f);
-
 		gameObject.transform.position = startPos;
 		gameObject.GetComponent<SpriteRenderer> ().enabled = false;
-		conductor = GameObject.FindWithTag ("Conductor");
-		crotchet = conductor.GetComponent<Conductor>().bpm/60.0f;
-		buffer = conductor.GetComponent<Conductor> ().buffer;
+
 		}
 
 
 
 	void Update(){
 	
-		float testPos = conductor.GetComponent<Conductor> ().deltaSongPosition;
+ 
 
-	
-		float playerX = player.GetComponent<PlatformerCharacter2D> ().transform.position.x;
-		endPos = new Vector2(playerX, gameObject.transform.position.y);
-		float xSpeed = direction * Mathf.Abs(((startPos.x - endPos.x) / crotchet));
+	}
 
-
-		if ((testPos > beatTimePos-(crotchet)) && (testPos < beatTimePos-(crotchet) + buffer)) {
-			rigidbody2D.velocity = new Vector2(xSpeed, 0.0f);
+	/*Turns the notes sprite renderer on so that it is visible to the player
+	 **/
+	public void SetActive(){
+		if (!isActive) {
 			gameObject.GetComponent<SpriteRenderer> ().enabled = true;
-						 
-			}
-
-		if (Input.GetKeyDown (activationKey)) {
-			float keyStrikeTime = conductor.GetComponent<Conductor>().deltaSongPosition;
-			//player.GetComponent<PlatformerCharacter2D>().Move (0.0f, false, true);
-			CheckTime(keyStrikeTime);
-
-		} 
-
-	}
-
-
-
-	public void CheckTime(float tapTime){
-
-		//Debug.Log ("TapTime:" + tapTime + "Beat Time" + beatTimePos + "buffer:" + buffer);
-		float withinBuffer = Mathf.Abs (beatTimePos - tapTime);
-
-		if (withinBuffer < buffer) {
-						Debug.Log ("Notes time Position:" + beatTimePos + "Key Strike Time:" + tapTime);
-						GameObject hudScript = GameObject.FindWithTag ("HUD");
-						hudScript.GetComponent<HUDScript> ().IncreaseScore (1);
-						//gameObject.GetComponent <SpriteRenderer>().color = Color.yellow;
-						Destroy (gameObject);
-						
-				} 
-	}
-
-
-
-	/**
-	void FixedUpdate(){
-
-		float moveTime = conductor.GetComponent<Conductor>().timeBetweenBeats;
-
-		//rigidbody2D.MovePosition (transform.position + (speed * moveTime));
-	
-	}*/
-	
-	void OnTriggerEnter2D(Collider2D other){
-		if(other.tag == "Static"){
-			Destroy(gameObject);
+			isActive = true;
 		}
-	
+	}
+
+
+
+	/**Check a tap to see if it applies to this note
+	 * */
+	public void CheckTap(float tapTime, int screenZ){
+
+
+		if (screenZ != screenZone) {
+						return;
+				} else {
+						//Debug.Log ("TapTime:" + tapTime + "Beat Time" + beatTimePos + "buffer:" + buffer);
+						float withinBuffer = Mathf.Abs (timeStamp - tapTime);
+
+						if (withinBuffer < buffer) {
+								//Debug.Log ("Notes time Position:" + timeStamp + "Key Strike Time:" + tapTime);
+								//anim.Play(played);
+								played = true;
+								//GameObject phrase = this.transform.parent;
+								//GameObject phrase = this.transform.parent.gameObject;
+								//phrase.GetComponent<Phrase>().CheckNotes();
+							
+						}
+				}
 	}
 
 }

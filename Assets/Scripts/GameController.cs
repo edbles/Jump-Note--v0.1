@@ -3,7 +3,7 @@ using System.Collections;
 
 public class GameController : MonoBehaviour {
 
-
+	/**This class controls transitions into and out of levels*/
 
 	// Use this for initialization
 	void Start () {
@@ -17,6 +17,13 @@ public class GameController : MonoBehaviour {
 
 	
 	
+	}
+
+
+	/**Called when a player loses or quits a level
+	 * */
+	public void EndLevel(){
+		Application.LoadLevel (Application.loadedLevelName);
 	}
 
 

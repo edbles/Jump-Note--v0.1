@@ -1,13 +1,11 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Note.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Conductor.cs">
     <Files>
-      <File FileName="Assets\Scripts\DecimatorScript.cs" Line="13" Column="1" />
-      <File FileName="Assets\Scripts\Note.cs" Line="68" Column="53" />
-      <File FileName="Assets\Scripts\HUDScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Conductor.cs" Line="31" Column="54" />
-      <File FileName="Assets\Scripts\PlatformerCharacter2D.cs" Line="111" Column="2" />
-      <File FileName="Assets\Player.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Conductor.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\TouchInputController.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Note.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\PhraseController.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
