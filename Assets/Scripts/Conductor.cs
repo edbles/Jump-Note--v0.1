@@ -34,9 +34,8 @@ public class Conductor : MonoBehaviour {
 		bool phrasesSpawned = phraseController.GetComponent<PhraseController> ().SpawnPhrases (songLength);
 
 
+		StartTracks ();
 
-		gameObject.GetComponent<AudioSource>().Play ();
-		songPosition = (float)AudioSettings.dspTime;
 
 	}
 
@@ -49,6 +48,19 @@ public class Conductor : MonoBehaviour {
 			lastBeat += timeBetweenBeats;
 						
 		}
+	
+	}
+
+	void StartTracks(){
+			//put code in here to start all three tracks at the same time
+
+		Component [] tracks;
+		tracks = gameObject.GetComponents<AudioSource> ();
+		foreach (Component track in tracks){
+			track.GetComponent<AudioSource>().Play ();
+
+		}
+		songPosition = (float)AudioSettings.dspTime;
 	
 	}
 

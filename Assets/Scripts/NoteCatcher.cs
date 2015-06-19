@@ -4,15 +4,16 @@ using System.Collections;
 public class NoteCatcher : MonoBehaviour {
 
 
-	private float moveModifier = 1.0f;
+	//private float moveModifier = 1.0f;
 
-	private Rigidbody2D rb2d;
+	//private Rigidbody2D rb2d;
 	// Use this for initialization
 	void Start () {
+		/**
 		rb2d = GetComponent<Rigidbody2D> ();
 		if (this.transform.position.x < 0) {
 			moveModifier = -1.0f;
-		}
+		}*/
 	
 	}
 	
