@@ -16,6 +16,7 @@ public class PhraseController : MonoBehaviour {
 	private GameObject[] noteCatchers;
 	private float songLength;
 
+
 	// Use this for initialization
 	void Start () {
 
@@ -26,6 +27,7 @@ public class PhraseController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
 	}
 
 	public bool SpawnPhrases(float songL){
@@ -33,11 +35,11 @@ public class PhraseController : MonoBehaviour {
 		songLength = songL;
 
 		//This should change to a collection of the appopriate timeStamps for the song
-		timeStamp = 1.0f;
+		timeStamp = 4.0f;
 
 
 		//Build the first 50 notes of the song
-		for (int i = 0; i<50; i++) {
+		for (int i = 0; i<25; i++) {
 			SpawnNextNote();
 		}
 

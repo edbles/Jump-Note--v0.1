@@ -31,8 +31,9 @@ public class Phrase : MonoBehaviour {
 
 		conductor = GameObject.FindWithTag ("Conductor");
 		crotchet = conductor.GetComponent<Conductor>().bpm/60.0f;
-		buffer = conductor.GetComponent<Conductor> ().buffer;
+		buffer = conductor.GetComponent<Conductor>().buffer;
 		aC = GetComponent<AudioClip> ();
+		//Debug.Log ("Buffer: " + buffer);
 	
 
 	
@@ -123,11 +124,18 @@ public class Phrase : MonoBehaviour {
 				if (phrasePlayed) {
 						GameObject hudScript = GameObject.FindWithTag ("HUD");
 						hudScript.GetComponent<HUDScript> ().IncreaseScore (1);
+						GameObject phraseC = GameObject.FindGameObjectWithTag("PhraseController");
+						phraseC.GetComponent<PhraseController>().SpawnNextNote();
+						//StartCoroutine(RemovePhrase());
+						Destroy(gameObject);
 						//call the conductor and make sure this track is unmuted
 						//or volumed up or whatever
 
 				}
 				
 		}
+
+
+
 
 }

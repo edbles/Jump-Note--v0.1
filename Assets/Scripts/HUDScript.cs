@@ -1,13 +1,24 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class HUDScript : MonoBehaviour {
 
 	float playerScore = 0;
+	Text guiText;
+	string scoreString;
+
+	void Start(){
+
+		guiText = GetComponent<Text> ();
+		scoreString = guiText.text;
+
+	
+	}
 	
 	// Update is called once per frame
 	void Update () {
-	
+		guiText.text = scoreString + ": " + playerScore;
 		//playerScore += Time.deltaTime;
 	}
 	public void IncreaseScore(int amount)
@@ -15,14 +26,5 @@ public class HUDScript : MonoBehaviour {
 		playerScore += amount;
 	}
 
-	//When this gets disables store the score in the player preferences
-	void OnDisable()
-	{
-		PlayerPrefs.SetInt("Score", (int)(playerScore * 100));
-	}
 
-	void OnGUI()
-	{
-		GUI.Label (new Rect (10, 10, 100, 30), "Score: " + (int)(playerScore * 100));
-	}
 }

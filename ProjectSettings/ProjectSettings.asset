@@ -11,8 +11,8 @@ PlayerSettings:
   targetIOSGraphics: -1
   targetResolution: 0
   accelerometerFrequency: 60
-  companyName: Unity
-  productName: Sample Assets
+  companyName: SteelButterfly
+  productName: Concordia
   cloudProjectId: 
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
@@ -74,8 +74,8 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleIdentifier: com.Company.ProductName
-  bundleVersion: 1.0
+  bundleIdentifier: com.SteelButterfly.Condordia
+  bundleVersion: 0.1
   preloadedAssets: []
   metroEnableIndependentInputSource: 0
   metroEnableLowLatencyPresentationAPI: 0
@@ -134,7 +134,7 @@ PlayerSettings:
   m_BuildTargetIcons:
   - m_BuildTarget: 
     m_Icons:
-    - m_Icon: {fileID: 0}
+    - m_Icon: {fileID: 2800000, guid: 9bb2e24423daffd4c9cbfd18962fee97, type: 3}
       m_Size: 128
   m_BuildTargetBatching:
   - m_BuildTarget: Web

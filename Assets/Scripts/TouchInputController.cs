@@ -20,12 +20,7 @@ public class TouchInputController : MonoBehaviour {
 	void Start () {
 
 		cond = GameObject.FindGameObjectWithTag ("Conductor");
-	//	width = Screen.width;
-		//height = Screen.height;
-		//laneHeight = height / 3;
 
-
-	
 	}
 	
 	// Update is called once per frame
@@ -35,10 +30,17 @@ public class TouchInputController : MonoBehaviour {
 		 */
 
 		for(int i = 0; i<Input.touchCount; i++){
+
+			Vector2 test = Camera.main.ScreenToWorldPoint(Input.GetTouch(i).position);
 			if(Input.GetTouch(i).phase == TouchPhase.Began){
+
 				Vector2 touchPos = Input.GetTouch(i).position;
-				Debug.Log ("Touch Pos: "+touchPos+"Conductor:" + cond.GetComponent<Conductor>().songPosition);
-				//CheckTouch(Conductor.GetComponent<Conductor>().songPosition, 
+				RaycastHit2D hitRay2D = Physics2D.Raycast(test, (touchPos));
+				float tapTime = cond.GetComponent<Conductor>().deltaSongPosition;
+				CheckTouch(tapTime, hitRay2D.point);
+				//Debug.Log ("Touch Pos: "+ hitRay2D.point +"Conductor:" + cond.GetComponent<Conductor>().deltaSongPosition);
+
+
 			}
 		}
 
@@ -46,14 +48,29 @@ public class TouchInputController : MonoBehaviour {
 	}
 
 
-	void CheckTouch(float tapTime, int screenZone){
-		/**
+	void CheckTouch(float tapTime, Vector2 touchPos){
+
+		int screenZone = 0;
+		if (touchPos.x > 0) {
+
+			screenZone +=3;
+			}
+
+		if (touchPos.y > laneTwo && touchPos.y < laneOne) {
+						screenZone++;
+				} else if (touchPos.y > laneThree && touchPos.y < laneTwo) {
+						screenZone += 2;
+				} else if (touchPos.y > laneFour && touchPos.y < laneThree) {
+						screenZone +=3;
+				}
+	
+
 		GameObject[] notes = GameObject.FindGameObjectsWithTag ("Note");
 
 		foreach (GameObject note in notes) {
 						if (note.GetComponent<Note> ().isActive) {
 								note.GetComponent<Note>().CheckTap(tapTime, screenZone);
 						}
-		}*/
+		}
 		}
 }

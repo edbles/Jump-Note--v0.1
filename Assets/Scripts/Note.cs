@@ -21,11 +21,15 @@ public class Note : MonoBehaviour {
 	public static float laneOne = 2.5f;
 	public static float laneTwo = 0.0f;
 	public static float laneThree = -3.0f;
-	public static float buffer;
+	private float buffer;
 	
 	
 
 	public void SetUp(float beatTime, int screenZ){
+		GameObject cond = GameObject.FindGameObjectWithTag ("Conductor");
+		buffer = cond.GetComponent<Conductor>().buffer;
+
+
 		screenZone = screenZ;
 		timeStamp = beatTime;
 		startPos = new Vector2(0.0f , 0.0f);
@@ -90,17 +94,18 @@ public class Note : MonoBehaviour {
 
 		if (screenZ != screenZone) {
 						return;
-				} else {
-						//Debug.Log ("TapTime:" + tapTime + "Beat Time" + beatTimePos + "buffer:" + buffer);
-						float withinBuffer = Mathf.Abs (timeStamp - tapTime);
+			} 
+		else {
+			//Debug.Log ("TapTime: " + tapTime + " Beat Time " + timeStamp + " buffer: " + buffer);
+			float withinBuffer = Mathf.Abs (timeStamp - tapTime);
 
-						if (withinBuffer < buffer) {
-								//Debug.Log ("Notes time Position:" + timeStamp + "Key Strike Time:" + tapTime);
-								//anim.Play(played);
-								played = true;
-								//GameObject phrase = this.transform.parent;
-								//GameObject phrase = this.transform.parent.gameObject;
-								//phrase.GetComponent<Phrase>().CheckNotes();
+			if (withinBuffer < buffer) {
+				//Debug.Log ("Notes time Position:" + timeStamp + "Key Strike Time:" + tapTime);
+				//anim.Play(played);
+				played = true;
+				//GameObject phrase = this.transform.parent;
+				GameObject phrase = this.transform.parent.gameObject;
+				phrase.GetComponent<Phrase>().CheckNotes();
 							
 						}
 				}
