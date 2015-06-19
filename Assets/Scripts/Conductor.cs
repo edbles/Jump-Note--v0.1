@@ -17,6 +17,7 @@ public class Conductor : MonoBehaviour {
 	public float songLength;
 
 
+	AudioSource[] tracks;
 	private GameObject phraseController;
 	private int beatNum;
 	private GameObject gc;
@@ -25,7 +26,9 @@ public class Conductor : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-		songLength = gameObject.GetComponent<AudioSource>().clip.length;
+		tracks = gameObject.GetComponents<AudioSource> ();
+		songLength = tracks[0].clip.length;
+
 	
 
 		phraseController = GameObject.FindGameObjectWithTag ("PhraseController");
@@ -53,16 +56,23 @@ public class Conductor : MonoBehaviour {
 
 	void StartTracks(){
 			//put code in here to start all three tracks at the same time
-
-		Component [] tracks;
-		tracks = gameObject.GetComponents<AudioSource> ();
-		foreach (Component track in tracks){
-			track.GetComponent<AudioSource>().Play ();
+		foreach (AudioSource track in tracks){
+			track.Play ();
 
 		}
 		songPosition = (float)AudioSettings.dspTime;
 	
 	}
+
+	public void SetTrackMuteState(int trackNum, bool notePlayed){
+		tracks [trackNum].mute = !notePlayed;
+
+
+	}
+
+
+
+
 
 
 }

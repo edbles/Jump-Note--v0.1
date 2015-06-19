@@ -122,18 +122,39 @@ public class Phrase : MonoBehaviour {
 				}
 
 				if (phrasePlayed) {
-						GameObject hudScript = GameObject.FindWithTag ("HUD");
-						hudScript.GetComponent<HUDScript> ().IncreaseScore (1);
-						GameObject phraseC = GameObject.FindGameObjectWithTag("PhraseController");
-						phraseC.GetComponent<PhraseController>().SpawnNextNote();
-						//StartCoroutine(RemovePhrase());
-						Destroy(gameObject);
-						//call the conductor and make sure this track is unmuted
-						//or volumed up or whatever
 
+						SelfDestruct(phrasePlayed);
+						
 				}
 				
 		}
+
+	public void SelfDestruct(bool wasPlayed){
+
+		//check if the note is being removed because it was succesfully captured by a player
+		if (wasPlayed) {
+			GameObject hudScript = GameObject.FindWithTag ("HUD");
+			hudScript.GetComponent<HUDScript> ().IncreaseScore (1);
+			GameObject phraseC = GameObject.FindGameObjectWithTag("PhraseController");
+			phraseC.GetComponent<PhraseController>().SpawnNextNote();
+
+
+			}
+		//check if the note was assigned to move right on the screen
+		if(modifier==3){
+
+
+			conductor.GetComponent<Conductor>().SetTrackMuteState(2, wasPlayed);
+		}
+		//otherwise if the note was assigned to move left
+		else{
+			conductor.GetComponent<Conductor>().SetTrackMuteState(1, wasPlayed);
+		
+		}
+
+
+		Destroy (gameObject);
+	}
 
 
 

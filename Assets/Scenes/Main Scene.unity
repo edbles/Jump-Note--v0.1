@@ -204,11 +204,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 26f0e22415ebf744998ec760c711d826, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 6716b7b832b6a5749842555b97dffe5d, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Priority: 128
   DopplerLevel: 1
@@ -275,7 +275,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 2
 --- !u!82 &140328845
 AudioSource:
   m_ObjectHideFlags: 0
@@ -285,11 +285,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 90f32b0a4f7ad054f9a9044cd5f0ef8f, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 720e3ad26ab65694ab1c281742350d62, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Priority: 128
   DopplerLevel: 1
@@ -509,7 +509,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: 69d99772dabd676468d6f8fb8ce9becb, type: 2}
       propertyPath: missedNotes
-      value: 50
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6176984, guid: 69d99772dabd676468d6f8fb8ce9becb, type: 2}
@@ -786,7 +786,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: 69d99772dabd676468d6f8fb8ce9becb, type: 2}
       propertyPath: missedNotes
-      value: 50
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 466352, guid: 69d99772dabd676468d6f8fb8ce9becb, type: 2}
       propertyPath: m_LocalPosition.x
@@ -864,7 +864,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   conductor: {fileID: 0}
-  samplePhrase: {fileID: 0}
+  samplePhrase: {fileID: 11474678, guid: 56c70c6e56e295140bb062113a60a0d7, type: 2}
 --- !u!61 &1650668984
 BoxCollider2D:
   m_ObjectHideFlags: 0

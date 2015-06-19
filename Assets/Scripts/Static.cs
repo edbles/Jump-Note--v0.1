@@ -42,7 +42,8 @@ public class Static : MonoBehaviour {
 	*/
 	void OnTriggerEnter2D(Collider2D other){
 		if (other.tag == "Phrase") {
-						Destroy (other.gameObject);
+						other.GetComponent<Phrase>().SelfDestruct(false);
+						//Destroy (other.gameObject);
 						MoveStaticIn ();
 						phraseController.GetComponent<PhraseController>().SpawnNextNote();
 				} 
