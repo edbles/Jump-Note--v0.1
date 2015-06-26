@@ -46,6 +46,8 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Beat Detection\BeatDetection.cs" />
+     <Compile Include="Assets\Beat Detection\Example\BeatDetectionExample.cs" />
      <Compile Include="Assets\Scripts\CameraRunnerScript.cs" />
      <Compile Include="Assets\Scripts\CameraTracksPlayerScript.cs" />
      <Compile Include="Assets\Scripts\Conductor.cs" />
@@ -63,6 +65,7 @@
      <Compile Include="Assets\Scripts\StartGameScript.cs" />
      <Compile Include="Assets\Scripts\Static.cs" />
      <Compile Include="Assets\Scripts\TouchInputController.cs" />
+     <None Include="Assets\Beat Detection\help.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

@@ -1,0 +1,40 @@
+Beat Detection
+
+Supports Free and Pro Unity Version. Mobile friendly!
+Web Demo: http://www.3y3.net/BeatDetection/BeatDetection.html
+
+Beat Detection Algorithm can detect the beats of any audio source in realtime by using frequency spectrum analysis (FFT), audio energy or both simultaneously. 
+
+You can use the script in your games or applications and make your applications react to the music. It is really easy to configure, simply add the script to the object with the audio source and choose the detection mode: 
+- Energy Mode: This mode will detect the beats analyzing the music volume changes. When a beat is detected a 'energy' code is returned.
+-Frequency mode: This mode uses spectrum analysis and can detect three different beats, low (kick), medium (snare) and high (hit hat) beats. 
+-Both: Using both methods you can get a complete control on the beats of your music.
+
+The code is high-performance and you can use it on mobile devices and even use several scripts simultaneously to control many audio sources.
+
+Full source C# code included.
+
+How to set up the scrip
+=======================
+
+1) Add the script to the object with the audio source you wish to control.
+2) Set the 'Beat Mode' to the one you wish.
+3) Once the scene were running all the beats will be reported to the Update() function of the script. The Update function makes a call to isBeat() which will return a mask for all the beats detected.
+
+//Update function example
+void Update() {
+		int theBeat = isBeat ();
+
+		if((theBeat & (int)beatType.kick) != (int)beatType.None)
+			Debug.Log ("Kick Detected ");
+		if((theBeat & (int)beatType.snare) != (int)beatType.None)
+			Debug.Log ("Snare Detected ");
+		if((theBeat & (int)beatType.hithat) != (int)beatType.None)
+			Debug.Log ("Hit Hat Detected ");
+		if((theBeat & (int)beatType.energy) != (int)beatType.None)
+			Debug.Log ("Energy beat Detected ");
+}
+
+Please, take in mind that when you use 'Frequency' mode or 'Both' mode, Beat Detector makes spectrum analysis and you can get several beat types in the same call. That is why the returned value is not a simple true or false, instead you can get a Low freq and High freq beat mask.
+
+The example scene is a good starting point!

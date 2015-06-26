@@ -1,15 +1,8 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\PhraseController.cs">
+  <MonoDevelop.Ide.Workspace />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Beat Detection\help.txt">
     <Files>
-      <File FileName="Assets\Scripts\Conductor.cs" Line="79" Column="1" />
-      <File FileName="Assets\Scripts\NoteCatcher.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Phrase.cs" Line="88" Column="2" />
-      <File FileName="Assets\Scripts\HUDScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\TouchInputController.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Note.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\PhraseController.cs" Line="72" Column="2" />
-      <File FileName="Assets\Scripts\Static.cs" Line="45" Column="55" />
+      <File FileName="Assets\Beat Detection\help.txt" Line="40" Column="44" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
