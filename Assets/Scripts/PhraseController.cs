@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System;
 
 public class PhraseController : MonoBehaviour {
 
@@ -7,10 +8,52 @@ public class PhraseController : MonoBehaviour {
 	/**This class will spawn, activate and just generally control phrases
 	 * */
 
+
+	/** make two objects one for each track list and then edit the code in 
+	 * the spawn next note function to spawn off of those two lists.
+	 * 
+	 * */
+
+
+	/**Creates a basic object to store the 
+	 * */
+	public class PhraseBlock:IComparable{
+		public float TimeStamp{ get; set;}
+		public int NotePattern{ get; set; }
+		public int NoteCatcherNumber{ get; set; }
+		public string ToString(){
+			return "\n" + TimeStamp + " " + NotePattern + " " + NoteCatcherNumber;
+		}
+		int IComparable.CompareTo(object obj)
+		{
+			PhraseBlock pb=(PhraseBlock)obj;
+			if (this.TimeStamp > pb.TimeStamp) {
+								return 1;
+						} else if (this.TimeStamp == pb.TimeStamp) {
+								return 0;
+						} else{
+								return -1;
+						}
+			
+		}
+		public PhraseBlock(float timeStamp, int notePattern, int noteCatcherNum){
+			TimeStamp = timeStamp;
+			NotePattern = notePattern;
+			NoteCatcherNumber = noteCatcherNum;
+
+		}
+	}
+
+	public string leftScoreSheet;
+	public string rightScoreSheet;
+	public string scoreDirectory;
 	public GameObject conductor;
 	public ArrayList phrases = new ArrayList();
 	public Phrase samplePhrase;
 
+	private bool canSpawnNotes = true;
+	private ArrayList notesTimePatternCatcherArray = new ArrayList();
+	private IEnumerator e;
 	private float timeStamp;
 	private bool spawnPhrasesComplete;
 	private GameObject[] noteCatchers;
@@ -21,6 +64,29 @@ public class PhraseController : MonoBehaviour {
 	void Start () {
 
 		conductor = GameObject.FindGameObjectWithTag ("Conductor");
+		bool fileRead = readFile (scoreDirectory+leftScoreSheet, 0);
+		bool fileRead2 = readFile (scoreDirectory+rightScoreSheet, 1);
+
+		/**
+		foreach (PhraseBlock pb in notesTimePatternCatcherArray) {
+			Debug.Log ("\n"+pb+" ");
+
+		}*/
+
+		notesTimePatternCatcherArray.Sort ();
+		e = notesTimePatternCatcherArray.GetEnumerator ();
+	
+		bool phrasesSpawned = SpawnPhrases ();
+		/**
+		foreach (PhraseBlock pb in notesTimePatternCatcherArray) {
+			Debug.Log ("\n"+pb.TimeStamp+" "+pb.NotePattern+" " +pb.NoteCatcherNumber);
+			
+		}*/
+
+		//conductor.GetComponent<Conductor> ().StartTracks ();
+
+
+		//innsert some sort of all clear for the conductor class to start the music and timer etc.
 
 	
 	}
@@ -30,18 +96,47 @@ public class PhraseController : MonoBehaviour {
 
 	}
 
-	public bool SpawnPhrases(float songL){
-		noteCatchers = GameObject.FindGameObjectsWithTag ("NoteCatcher");
-		songLength = songL;
+	private bool readFile(string fileName, int tempNoteCatchNum){
+		string line;
+		float tempTimeStamp;
+		int tempNotePattern;
+		//Debug.Log ("Filename:" + fileName);
+		System.IO.StreamReader file = new System.IO.StreamReader (@fileName);
+		while((line = file.ReadLine())!=null){
+	
+			int tLoc = line.IndexOf("T:")+2;
+			int sLoc = line.IndexOf (":S");
+			string timeS = line.Substring(tLoc, sLoc-tLoc);
+			//Debug.Log ("\n"+timeS);
+			tempTimeStamp = float.Parse(timeS);
+			//Debug.Log ("timestamp post parse:" + tempTimeStamp);
+			int nLoc = line.IndexOf("N:")+2;
+			int pLoc = line.IndexOf(":P");
+			string noteP = line.Substring(nLoc, pLoc-nLoc);
+			//Debug.Log (" "+noteP);
+			tempNotePattern = int.Parse(noteP);
+			//Debug.Log("TempPattern:" +tempNotePattern);
+			PhraseBlock pb = new PhraseBlock(tempTimeStamp, tempNotePattern, tempNoteCatchNum);
 
-		//This should change to a collection of the appopriate timeStamps for the song
-		timeStamp = 4.0f;
+			notesTimePatternCatcherArray.Add(pb);
 
+			//Debug.Log (pb.TimeStamp+" "+pb.NoteCatcherNumber+"\n");
 
-		//Build the first 50 notes of the song
-		for (int i = 0; i<25; i++) {
-			SpawnNextNote();
 		}
+
+		return true;
+
+	}
+
+	public bool SpawnPhrases(){
+		noteCatchers = GameObject.FindGameObjectsWithTag ("NoteCatcher");
+		//Build the first 25 notes of the song
+		for(int i=0; i<250; i++){
+
+			SpawnNextNote ();
+		}
+
+		conductor.GetComponent<Conductor> ().StartTracks ();
 
 		return true;
 	}
@@ -49,23 +144,33 @@ public class PhraseController : MonoBehaviour {
 	/*This function builds the next note int he song. It currently assigns a random notePattern and 
 	 * and predermined .5f second increment to it, but this should become a Queue
 	 * */
+
+
 	public void SpawnNextNote(){
+	
 
-		//Build the next note in the song
-		//This will need to change for a real level to a stack of notes or possibly 2?
-		if(timeStamp<songLength){
-			Phrase tempPhrase = Instantiate(samplePhrase) as Phrase;
-			int noteCatcherNum = 0;
-		
-			noteCatcherNum = Mathf.RoundToInt(Random.Range (0.0f, 1.0f));
-		
-		
-			float tempNoteC = noteCatchers[noteCatcherNum].GetComponent<NoteCatcher>().transform.position.x;
-			int notePattern = Mathf.RoundToInt(Random.Range(1.0f, 7.4f));
-			tempPhrase.SetUp(notePattern, timeStamp, tempNoteC);
-			phrases.Add (tempPhrase);
-			timeStamp+=.5f;
+			if (e.MoveNext ()) {
+				
+						PhraseBlock pb = (PhraseBlock)e.Current;
 
+						Phrase tempPhrase = Instantiate (samplePhrase) as Phrase;
+
+
+						float tempNoteC = noteCatchers [pb.NoteCatcherNumber].GetComponent<NoteCatcher> ().transform.position.x;
+						//int notePattern = Mathf.RoundToInt(UnityEngine.Random.Range(1.0f, 7.4f));
+						int spriteNum = pb.NotePattern - 1;
+						tempPhrase.SetUp (pb.NotePattern, pb.TimeStamp, tempNoteC, spriteNum);
+						phrases.Add (tempPhrase);
+				}
+	}
+
+
+
+	void OnTriggerEnter2D(Collider2D other){
+		if (other.tag == "Static") {
+			GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().EndLevel();
+
+				
 		}
 	}
 }

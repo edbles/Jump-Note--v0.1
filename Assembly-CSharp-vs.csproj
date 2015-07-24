@@ -56,6 +56,7 @@
      <Compile Include="Assets\Scripts\GameController.cs" />
      <Compile Include="Assets\Scripts\GameOverScript.cs" />
      <Compile Include="Assets\Scripts\HUDScript.cs" />
+     <Compile Include="Assets\Scripts\LevelBuilder.cs" />
      <Compile Include="Assets\Scripts\Note.cs" />
      <Compile Include="Assets\Scripts\NoteCatcher.cs" />
      <Compile Include="Assets\Scripts\Phrase.cs" />
@@ -65,6 +66,9 @@
      <Compile Include="Assets\Scripts\StartGameScript.cs" />
      <Compile Include="Assets\Scripts\Static.cs" />
      <Compile Include="Assets\Scripts\TouchInputController.cs" />
+     <None Include="Assets\ScoreSheets\GamesSeriouslyRight.txt" />
+     <None Include="Assets\ScoreSheetsGamesSeriouslyLeft.txt" />
+     <None Include="Assets\ScoreSheets\GamesSeriouslyLeft.txt" />
      <None Include="Assets\Beat Detection\help.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

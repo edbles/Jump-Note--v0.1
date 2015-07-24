@@ -22,13 +22,16 @@ public class Note : MonoBehaviour {
 	public static float laneTwo = 0.0f;
 	public static float laneThree = -3.0f;
 	private float buffer;
+
+	public Sprite[]  noteSprites;
 	
 	
 
-	public void SetUp(float beatTime, int screenZ){
+	public void SetUp(float beatTime, int screenZ, int spriteNum){
 		GameObject cond = GameObject.FindGameObjectWithTag ("Conductor");
 		buffer = cond.GetComponent<Conductor>().buffer;
-
+		SpriteRenderer SPR = GetComponent<SpriteRenderer> ();
+		SPR.sprite = noteSprites [spriteNum];
 
 		screenZone = screenZ;
 		timeStamp = beatTime;

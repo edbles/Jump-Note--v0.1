@@ -34,10 +34,10 @@ public class Conductor : MonoBehaviour {
 		phraseController = GameObject.FindGameObjectWithTag ("PhraseController");
 
 		//Spawns the first 50 phrases and then starts the song playing
-		bool phrasesSpawned = phraseController.GetComponent<PhraseController> ().SpawnPhrases (songLength);
+		//bool phrasesSpawned = phraseController.GetComponent<PhraseController> ().SpawnPhrases (songLength);
 
 
-		StartTracks ();
+		//StartTracks ();
 
 
 	}
@@ -54,7 +54,7 @@ public class Conductor : MonoBehaviour {
 	
 	}
 
-	void StartTracks(){
+	public void StartTracks(){
 			//put code in here to start all three tracks at the same time
 		foreach (AudioSource track in tracks){
 			track.Play ();

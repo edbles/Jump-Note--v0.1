@@ -1,8 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
+using System.IO;
 
 public class BeatDetectionExample : MonoBehaviour {
 
+	//public int noteCacherNum; // the side of the screen this track will move towards 0 for left 1 for right
 	public enum beatmode{Energy, Frequency, Both};
 	public enum beatType { None = 0, kick = 1, snare = 2, hithat = 4, energy=8 };
 
@@ -11,6 +14,7 @@ public class BeatDetectionExample : MonoBehaviour {
 	public GUIText snare;
 	public GUIText hithat;
 
+	public string fileName;
 	public GameObject genergy;
 	public GameObject gkick;
 	public GameObject gsnare;
@@ -28,7 +32,7 @@ public class BeatDetectionExample : MonoBehaviour {
 	private const int LINEAR_OCTAVE_DIVISIONS = 3; 				//Linear divisions per octave
 	private const int HISTORY_LENGTH = 43; 						//Real number of history buffer per frequency.
 	private const int MAX_HISTORY = 500;						//Allocation buffer. Must be greater than MAX_FRQSEC*LINEAR_OCTAVE_DIVISIONS*HISTORY_LENGTH
-	private const float MIN_BEAT_SEPARATION = 0.05f;			//Minimum beat separation in time
+	private const float MIN_BEAT_SEPARATION = 1.0f;			//Minimum beat separation in time
 
 
 
@@ -64,6 +68,8 @@ public class BeatDetectionExample : MonoBehaviour {
 	float[] frames0;
 	float[] frames1;
 
+	string scoreSheetText ="";
+
 	/********************************************
 	 ********************************************
 	 This is th only function you ned to use
@@ -75,16 +81,37 @@ public class BeatDetectionExample : MonoBehaviour {
 	********************************************/
 	void Update() {
 		int theBeat = isBeat ();
-		/*
-		if((theBeat & (int)beatType.kick) != (int)beatType.None)
+		int notePattern = 0;
+		float timeStamp = Time.time;
+	
+		/**This function is flawed and gives preference to kick and snare detection and needs to be adjusted
+		 *this is a temporary fix to avoid duplicates in the log file. 
+		 */
+		if ((theBeat & (int)beatType.kick) != (int)beatType.None) {
 			Debug.Log ("Kick Detected ");
-		if((theBeat & (int)beatType.snare) != (int)beatType.None)
+			notePattern = Mathf.RoundToInt(UnityEngine.Random.Range(.5f, 3.4f));
+			WriteBeat(timeStamp, notePattern);
+
+		}
+		else if ((theBeat & (int)beatType.snare) != (int)beatType.None) {
 			Debug.Log ("Snare Detected ");
-		if((theBeat & (int)beatType.hithat) != (int)beatType.None)
+			notePattern = Mathf.RoundToInt(UnityEngine.Random.Range (3.5f, 5.4f));
+			WriteBeat(timeStamp, notePattern);
+
+		}
+		else if ((theBeat & (int)beatType.hithat) != (int)beatType.None) {
 			Debug.Log ("Hit Hat Detected ");
-		if((theBeat & (int)beatType.energy) != (int)beatType.None)
+			notePattern = 6;
+			WriteBeat(timeStamp, notePattern);
+
+		}
+		else if((theBeat & (int)beatType.energy) != (int)beatType.None){
 			Debug.Log ("Energy beat Detected ");
-		*/
+			notePattern = 7;
+			WriteBeat(timeStamp, notePattern);
+
+		}
+	
 
 
 		if ((theBeat & (int)beatType.kick) != (int)beatType.None) {
@@ -102,6 +129,15 @@ public class BeatDetectionExample : MonoBehaviour {
 
 	}
 
+	void WriteBeat(float timeStamp, int notePattern){
+		using (System.IO.StreamWriter file = 
+		       new System.IO.StreamWriter(@fileName, true))
+		{
+			file.WriteLine(("T:"+timeStamp +":SN:" +notePattern +":P"));
+		}
+	
+	}
+
 	private IEnumerator showText(GUIText texto, GameObject objeto) {
 		texto.enabled = true;
 		objeto.GetComponent<Renderer>().material = matOn;
@@ -110,6 +146,7 @@ public class BeatDetectionExample : MonoBehaviour {
 		objeto.GetComponent<Renderer>().material = matOff;
 	}
 
+	/**
 	void OnGUI() {
 		if (GUI.Button (new Rect (410, 200, 150, 60), "Start/Stop"))
 				if (GetComponent<AudioSource>().isPlaying)
@@ -117,7 +154,7 @@ public class BeatDetectionExample : MonoBehaviour {
 				else
 						GetComponent<AudioSource>().Play ();
 		
-	}
+	}*/
 
 	void Start () {
 		spectrum0 = new float[numSamples];
@@ -131,8 +168,26 @@ public class BeatDetectionExample : MonoBehaviour {
 		tIni=Time.time;
 		for(int i=0; i<MAX_FRQSEC; i++)
 			tIniF[i]=Time.time;
-	}
 
+		fileName = "C:\\Users\\edbles\\Documents\\Game Making Practice\\Jump Note\\Assets\\ScoreSheets\\"+fileName+".txt";
+		//this will need to change to allow the end user to choose their own directory
+
+		System.IO.FileInfo fi = new System.IO.FileInfo(@fileName);
+		try
+		{
+			fi.Delete();
+		}
+		catch (System.IO.IOException e)
+		{
+			Console.WriteLine(e.Message);
+		}
+
+		System.IO.File.WriteAllText(@fileName, "");
+		
+		
+		
+	}
+	
 	int isBeat() {
 
 		GetComponent<AudioSource>().GetSpectrumData(spectrum0, 0, FFTWindow.BlackmanHarris);
@@ -401,7 +456,7 @@ public class BeatDetectionExample : MonoBehaviour {
 			}
 
 			if(instant>mul*E)
-				Debug.Log("instan="+instant+" mul*E="+(mul*E)+" mul="+mul+" E="+E);
+				//Debug.Log("instan="+instant+" mul*E="+(mul*E)+" mul="+mul+" E="+E);
 			
 			if(Time.time-tIniF[i]<MIN_BEAT_SEPARATION)
 				detectados[i]= false;

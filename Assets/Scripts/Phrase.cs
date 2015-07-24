@@ -42,10 +42,11 @@ public class Phrase : MonoBehaviour {
 
 	/**Sets up the phrase with the appropriate notes and timestamp and screenZone
 	 * */
-	public void SetUp(int noteP, float timeS, float noteCP ){
+	public void SetUp(int noteP, float timeS, float noteCP, int spriteNum ){
 		noteCatchPos = noteCP;
 		timeStamp = timeS;
 		notePattern = noteP;
+
 
 		if (noteCatchPos < this.transform.position.x) {
 			modifier = 0;
@@ -53,19 +54,19 @@ public class Phrase : MonoBehaviour {
 
 		if (notePattern == 1 || notePattern == 4 || notePattern == 6 || notePattern == 7) {
 			Note tempNote1  = (Note) Instantiate(sampleNote);
-			tempNote1.SetUp(timeStamp, laneOne+modifier);
+			tempNote1.SetUp(timeStamp, laneOne+modifier, spriteNum);
 			tempNote1.transform.parent = gameObject.transform;
 			notes.Add(tempNote1);
 			} 
 		if (notePattern == 2 || notePattern == 4 || notePattern == 5 || notePattern == 7) {
 							Note tempNote2 = Instantiate(sampleNote) as Note;
-							tempNote2.SetUp(timeStamp, laneTwo+modifier);
+							tempNote2.SetUp(timeStamp, laneTwo+modifier, spriteNum);
 							tempNote2.transform.parent = gameObject.transform;
 							notes.Add (tempNote2);
 			} 
 		if (notePattern == 3 || notePattern == 5 || notePattern == 6 || notePattern == 7) {
 						Note tempNote3 = Instantiate (sampleNote) as Note;
-						tempNote3.SetUp(timeStamp, laneThree+modifier);
+						tempNote3.SetUp(timeStamp, laneThree+modifier, spriteNum);
 						tempNote3.transform.parent = gameObject.transform;
 						notes.Add (tempNote3);
 			}

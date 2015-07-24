@@ -16,7 +16,12 @@ public class Static : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		rb2D = GetComponent <Rigidbody2D> ();
-		moveOffset = (-1.0f * this.transform.position.x) / missedNotes;
+		float centerOffset = -5.0f; //variable that defines the offset needed to move the static to center
+		if (this.transform.position.x < 0) {
+			centerOffset*=-1.0f;
+			}
+		moveOffset = (-1.0f * (this.transform.position.x+centerOffset)) / missedNotes;
+		//Debug.Log ("Move Offset: " + moveOffset);
 		//noteCatcher.transform = this.transform.GetChild (0);
 		phraseController = GameObject.FindGameObjectWithTag ("PhraseController");
 	
@@ -40,7 +45,7 @@ public class Static : MonoBehaviour {
 	/*Checks to see if the Static is colliding with a phrase
 	 * if it is it destorys the phrase moves the static in and spawns the next note in phrase controller
 	*/
-	void OnTriggerEnter2D(Collider2D other){
+	void OnTriggerExit2D(Collider2D other){
 		if (other.tag == "Phrase") {
 						other.GetComponent<Phrase>().SelfDestruct(false);
 						//Destroy (other.gameObject);
