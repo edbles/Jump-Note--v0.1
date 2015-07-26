@@ -9,7 +9,7 @@ public class StartGameScript : MonoBehaviour {
 
 		if(GUI.Button(new Rect(Screen.width / 2 - 30, 250, 60, 30), "Play"))
 		{
-			Application.LoadLevel(0);
+			Application.LoadLevel(1);
 		}
 
 	}

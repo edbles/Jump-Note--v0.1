@@ -8,8 +8,9 @@ public class Note : MonoBehaviour {
 	 * */
 
 
-	public bool played;
+	public bool isPlayedAccurate;
 	private float timeStamp;
+	public float tapPercentage = 0.0f;
 
 	private Vector2 endPos;
 	private Vector2 startPos;
@@ -17,7 +18,7 @@ public class Note : MonoBehaviour {
 	public bool isActive = false;
 
 	private int screenZone;
-
+	private bool isNegativeNote; //set this to true if the note should not be played in the phrase
 	public static float laneOne = 2.5f;
 	public static float laneTwo = 0.0f;
 	public static float laneThree = -3.0f;
@@ -27,16 +28,22 @@ public class Note : MonoBehaviour {
 	
 	
 
-	public void SetUp(float beatTime, int screenZ, int spriteNum){
+	public void SetUp(float beatTime, int screenZ, int spriteNum, bool isNegNote){
 		GameObject cond = GameObject.FindGameObjectWithTag ("Conductor");
 		buffer = cond.GetComponent<Conductor>().buffer;
 		SpriteRenderer SPR = GetComponent<SpriteRenderer> ();
 		SPR.sprite = noteSprites [spriteNum];
 
+		isNegativeNote = isNegNote;
+		if (isNegativeNote) {
+						isPlayedAccurate = true;
+				} else {
+						isPlayedAccurate = false;
+				}
 		screenZone = screenZ;
 		timeStamp = beatTime;
 		startPos = new Vector2(0.0f , 0.0f);
-		played = false;
+
 		float angle = 0.0f;
 
 		if (screenZone < 4) {
@@ -82,8 +89,11 @@ public class Note : MonoBehaviour {
 	/*Turns the notes sprite renderer on so that it is visible to the player
 	 **/
 	public void SetActive(){
-		if (!isActive) {
+		//keep the sprite renderer off if the note is one that shouldn't be played in the phrase
+		if (!isNegativeNote) {
 			gameObject.GetComponent<SpriteRenderer> ().enabled = true;
+		}
+		if (!isActive) {
 			isActive = true;
 		}
 	}
@@ -105,10 +115,19 @@ public class Note : MonoBehaviour {
 			if (withinBuffer < buffer) {
 				//Debug.Log ("Notes time Position:" + timeStamp + "Key Strike Time:" + tapTime);
 				//anim.Play(played);
-				played = true;
-				//GameObject phrase = this.transform.parent;
-				GameObject phrase = this.transform.parent.gameObject;
-				phrase.GetComponent<Phrase>().CheckNotes();
+
+				if(!isNegativeNote){
+					isPlayedAccurate = true;
+					tapPercentage = (1.0f-(withinBuffer/buffer))*100f;
+					tapPercentage = Mathf.Round (tapPercentage);
+					//GameObject phrase = this.transform.parent;
+					GameObject phrase = this.transform.parent.gameObject;
+					phrase.GetComponent<Phrase>().CheckNotes();
+				}
+				else{
+					isPlayedAccurate = false;
+				}
+
 							
 						}
 				}

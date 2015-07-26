@@ -17,6 +17,9 @@ public class Conductor : MonoBehaviour {
 	public float songLength;
 
 
+	bool levelStarted;
+
+
 	AudioSource[] tracks;
 	private GameObject phraseController;
 	private int beatNum;
@@ -28,6 +31,7 @@ public class Conductor : MonoBehaviour {
 
 		tracks = gameObject.GetComponents<AudioSource> ();
 		songLength = tracks[0].clip.length;
+		levelStarted = false;
 
 	
 
@@ -51,6 +55,8 @@ public class Conductor : MonoBehaviour {
 			lastBeat += timeBetweenBeats;
 						
 		}
+
+		CheckForWin ();
 	
 	}
 
@@ -60,7 +66,9 @@ public class Conductor : MonoBehaviour {
 			track.Play ();
 
 		}
+
 		songPosition = (float)AudioSettings.dspTime;
+		levelStarted = true;
 	
 	}
 
@@ -68,6 +76,15 @@ public class Conductor : MonoBehaviour {
 		tracks [trackNum].mute = !notePlayed;
 
 
+	}
+
+	public void CheckForWin(){
+
+		if((deltaSongPosition > songLength)&&(levelStarted)){
+			GameObject gc = GameObject.FindGameObjectWithTag("GameController");
+			gc.GetComponent<GameController>().WinLevel();
+		}
+	
 	}
 
 

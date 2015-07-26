@@ -534,7 +534,7 @@ Prefab:
     - target: {fileID: 11109212, guid: 69d99772dabd676468d6f8fb8ce9becb, type: 2}
       propertyPath: m_Animation
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 7400000, guid: 4a24166579a9d09479671d7c022cc3c7, type: 2}
     - target: {fileID: 9550592, guid: 69d99772dabd676468d6f8fb8ce9becb, type: 2}
       propertyPath: m_Controller
       value: 
@@ -557,7 +557,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: 69d99772dabd676468d6f8fb8ce9becb, type: 2}
       propertyPath: missedNotes
-      value: 30
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 11109212, guid: 69d99772dabd676468d6f8fb8ce9becb, type: 2}
+      propertyPath: m_AnimatePhysics
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 69d99772dabd676468d6f8fb8ce9becb, type: 2}
@@ -627,10 +631,10 @@ MonoBehaviour:
   m_Script: {fileID: 1980459831, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
-  m_ReferencePixelsPerUnit: 100
+  m_UiScaleMode: 1
+  m_ReferencePixelsPerUnit: 1000
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 2560, y: 1440}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -677,20 +681,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: .0117647061, a: 1}
+  m_Color: {r: .786764741, g: .318452388, b: 0, a: 1}
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_Font: {fileID: 12800000, guid: 0f2540980a4b732418e5bd5c88728b7a, type: 3}
+    m_FontSize: 140
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 0
+    m_Alignment: 4
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "P1 Score:\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tP2 Score"
+  m_Text: "P1\t\t\t\t\tP2"
 --- !u!222 &1117835514
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -845,7 +849,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: 69d99772dabd676468d6f8fb8ce9becb, type: 2}
       propertyPath: missedNotes
-      value: 30
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 11109212, guid: 69d99772dabd676468d6f8fb8ce9becb, type: 2}
+      propertyPath: m_PlayAutomatically
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 69d99772dabd676468d6f8fb8ce9becb, type: 2}

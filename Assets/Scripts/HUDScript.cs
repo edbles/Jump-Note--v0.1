@@ -4,8 +4,14 @@ using System.Collections;
 
 public class HUDScript : MonoBehaviour {
 
-	float leftPlayerScore = 0;
-	float rightPlayerScore = 0;
+	float leftPlayerPercentTotal = 0f;
+	int leftCount = 0;
+	float leftPlayerScore = 0f;
+
+	int rightCount =0;
+	float rightPlayerScore = 0f;
+	float rightPlayerPercentTotal = 0f;
+
 	Text guiText;
 	string scoreString;
 
@@ -19,15 +25,19 @@ public class HUDScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		guiText.text = "P1 Score: " + leftPlayerScore + "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t" + "P2 Score: " + rightPlayerScore; 
+		guiText.text =""+ leftPlayerScore + "%\t\t\t" + rightPlayerScore + "%"; 
 		//playerScore += Time.deltaTime;
 	}
-	public void IncreaseScore(int amount, bool isLeft)
+	public void IncreaseScore(float amount, bool isLeft)
 	{
-		if (isLeft) {
-						leftPlayerScore += amount;
+		if (isLeft) {	
+						leftCount++;
+						leftPlayerPercentTotal += amount;
+						leftPlayerScore = Mathf.Round (leftPlayerPercentTotal/leftCount);
 				} else {
-						rightPlayerScore +=amount;
+						rightCount++;
+						rightPlayerPercentTotal +=amount;
+						rightPlayerScore = Mathf.Round (rightPlayerPercentTotal/rightCount);
 				}
 	}
 

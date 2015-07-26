@@ -16,15 +16,17 @@ public class Phrase : MonoBehaviour {
 
 
 
-
+	float phrasePercentage;
 	private float crotchet;
 	//private Vector2 endPos;
 	private float buffer;
 	//private int audioClipNum;
-	private static int laneOne = 1;
+	private static int[] lanes = {1, 2, 3};
+
+	/**
 	private static int laneTwo = 2;
 	private static int laneThree = 3;
-
+*/
 		
 	// Use this for initialization
 	void Start () {
@@ -42,34 +44,43 @@ public class Phrase : MonoBehaviour {
 
 	/**Sets up the phrase with the appropriate notes and timestamp and screenZone
 	 * */
-	public void SetUp(int noteP, float timeS, float noteCP, int spriteNum ){
+	public void SetUp(int noteP, float timeS, float noteCP, int spriteNum){
 		noteCatchPos = noteCP;
 		timeStamp = timeS;
 		notePattern = noteP;
+		bool[] isNegativeNote = {true, true, true};
+		Note[] tempNotes = {null, null, null};
+
+		/**
+		foreach (Note n in tempNotes) {
+			n = (Note)Instantiate (sampleNote) as Note;
+		}*/
 
 
 		if (noteCatchPos < this.transform.position.x) {
 			modifier = 0;
 		}
 
+	
+
 		if (notePattern == 1 || notePattern == 4 || notePattern == 6 || notePattern == 7) {
-			Note tempNote1  = (Note) Instantiate(sampleNote);
-			tempNote1.SetUp(timeStamp, laneOne+modifier, spriteNum);
-			tempNote1.transform.parent = gameObject.transform;
-			notes.Add(tempNote1);
-			} 
+						isNegativeNote [0] = false;
+				}
 		if (notePattern == 2 || notePattern == 4 || notePattern == 5 || notePattern == 7) {
-							Note tempNote2 = Instantiate(sampleNote) as Note;
-							tempNote2.SetUp(timeStamp, laneTwo+modifier, spriteNum);
-							tempNote2.transform.parent = gameObject.transform;
-							notes.Add (tempNote2);
+			isNegativeNote[1] = false;
+
 			} 
 		if (notePattern == 3 || notePattern == 5 || notePattern == 6 || notePattern == 7) {
-						Note tempNote3 = Instantiate (sampleNote) as Note;
-						tempNote3.SetUp(timeStamp, laneThree+modifier, spriteNum);
-						tempNote3.transform.parent = gameObject.transform;
-						notes.Add (tempNote3);
+			isNegativeNote[2] = false;
 			}
+
+
+		for (int i = 0; i<3; i++) {
+			tempNotes [i] = (Note) Instantiate (sampleNote) as Note;
+			tempNotes [i].SetUp (timeStamp, lanes [i] + modifier, spriteNum, isNegativeNote [i]);
+			tempNotes [i].transform.parent = gameObject.transform;
+			notes.Add (tempNotes [i]);
+		}
 	}
 	
 	// Update is called once per frame
@@ -110,20 +121,23 @@ public class Phrase : MonoBehaviour {
 
 		bool phrasePlayed = true;
 
-
+		int count = 0;
+		float tapPercentage = 0.0f;
 
 				foreach (Note note in notes) {
 						if(note!= null){
-							if (!note.played) {
+							if (!note.isPlayedAccurate) {
 									phrasePlayed = false;
 									break;
 							}
+							count++;
+							tapPercentage += note.tapPercentage;
 						}
 			
 				}
 
 				if (phrasePlayed) {
-
+						phrasePercentage = Mathf.Round (tapPercentage/count);						
 						SelfDestruct(phrasePlayed);
 						
 				}
@@ -135,13 +149,14 @@ public class Phrase : MonoBehaviour {
 		bool isLeft = noteCatchPos < 0;
 		//check if the note is being removed because it was succesfully captured by a player
 		if (wasPlayed) {
-			GameObject hudScript = GameObject.FindWithTag ("HUD");
-			hudScript.GetComponent<HUDScript> ().IncreaseScore (1, isLeft);
-			GameObject phraseC = GameObject.FindGameObjectWithTag("PhraseController");
-			phraseC.GetComponent<PhraseController>().SpawnNextNote();
+						
+						GameObject phraseC = GameObject.FindGameObjectWithTag ("PhraseController");
+						phraseC.GetComponent<PhraseController> ().SpawnNextNote ();
 
 
-			}
+				} 
+		GameObject hudScript = GameObject.FindWithTag ("HUD");
+		hudScript.GetComponent<HUDScript> ().IncreaseScore (phrasePercentage, isLeft);
 		//check if the note was assigned to move right on the screen
 		if(modifier==3){
 

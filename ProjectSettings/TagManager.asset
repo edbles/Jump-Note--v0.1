@@ -14,6 +14,7 @@ TagManager:
   - TouchInputController
   - NoteCatcher
   - PhraseController
+  - Background
   layers:
   - Default
   - TransparentFX

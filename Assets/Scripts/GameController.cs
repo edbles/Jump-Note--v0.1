@@ -8,6 +8,7 @@ public class GameController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
+
 	
 	
 	}
@@ -23,7 +24,14 @@ public class GameController : MonoBehaviour {
 	/**Called when a player loses or quits a level
 	 * */
 	public void EndLevel(){
-		Application.LoadLevel (Application.loadedLevelName);
+		Debug.Log ("LOSEEEEEER");
+		Application.LoadLevel (0);
+	}
+
+	//Call if both players sruvive till the end of the song
+	public void WinLevel(){
+		Debug.Log ("WINNNNERRRRR");
+		Application.LoadLevel (0);
 	}
 
 

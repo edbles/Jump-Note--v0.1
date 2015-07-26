@@ -104,7 +104,7 @@ public class PhraseController : MonoBehaviour {
 		//Debug.Log ("Filename:" + fileName);
 		int count = 1;
 
-		Debug.Log ("FILENAME:" +scoreSheet);
+		//Debug.Log ("FILENAME:" +scoreSheet);
 		string[] linesFromFile = scoreSheet.text.Split ("\n" [0]);
 		foreach (string line in linesFromFile){
 			count++;
@@ -116,7 +116,7 @@ public class PhraseController : MonoBehaviour {
 			//Debug.Log ("timestamp post parse:" + tempTimeStamp);
 			int nLoc = line.IndexOf("N:")+2;
 			int pLoc = line.IndexOf(":P");
-			Debug.Log ("Line" + count+ "nLoc: " + nLoc +"pLoc" + "pLoc");
+			//Debug.Log ("Line" + count+ "nLoc: " + nLoc +"pLoc" + "pLoc");
 			string noteP = line.Substring(nLoc, pLoc-nLoc);
 			//Debug.Log (" "+noteP);
 			tempNotePattern = int.Parse(noteP);
@@ -161,8 +161,6 @@ public class PhraseController : MonoBehaviour {
 						PhraseBlock pb = (PhraseBlock)e.Current;
 
 						Phrase tempPhrase = Instantiate (samplePhrase) as Phrase;
-
-
 						float tempNoteC = noteCatchers [pb.NoteCatcherNumber].GetComponent<NoteCatcher> ().transform.position.x;
 						//int notePattern = Mathf.RoundToInt(UnityEngine.Random.Range(1.0f, 7.4f));
 						int spriteNum = pb.NotePattern - 1;
