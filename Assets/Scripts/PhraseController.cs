@@ -44,8 +44,8 @@ public class PhraseController : MonoBehaviour {
 		}
 	}
 
-	public string leftScoreSheet;
-	public string rightScoreSheet;
+	public TextAsset leftScoreSheet;
+	public TextAsset rightScoreSheet;
 	public string scoreDirectory;
 	public GameObject conductor;
 	public ArrayList phrases = new ArrayList();
@@ -64,8 +64,9 @@ public class PhraseController : MonoBehaviour {
 	void Start () {
 
 		conductor = GameObject.FindGameObjectWithTag ("Conductor");
-		bool fileRead = readFile (scoreDirectory+leftScoreSheet, 0);
-		bool fileRead2 = readFile (scoreDirectory+rightScoreSheet, 1);
+
+		bool fileRead = readFile (leftScoreSheet, 0);
+		bool fileRead2 = readFile (rightScoreSheet, 1);
 
 		/**
 		foreach (PhraseBlock pb in notesTimePatternCatcherArray) {
@@ -96,14 +97,17 @@ public class PhraseController : MonoBehaviour {
 
 	}
 
-	private bool readFile(string fileName, int tempNoteCatchNum){
-		string line;
+	private bool readFile(TextAsset scoreSheet, int tempNoteCatchNum){
+
 		float tempTimeStamp;
 		int tempNotePattern;
 		//Debug.Log ("Filename:" + fileName);
-		System.IO.StreamReader file = new System.IO.StreamReader (@fileName);
-		while((line = file.ReadLine())!=null){
-	
+		int count = 1;
+
+		Debug.Log ("FILENAME:" +scoreSheet);
+		string[] linesFromFile = scoreSheet.text.Split ("\n" [0]);
+		foreach (string line in linesFromFile){
+			count++;
 			int tLoc = line.IndexOf("T:")+2;
 			int sLoc = line.IndexOf (":S");
 			string timeS = line.Substring(tLoc, sLoc-tLoc);
@@ -112,6 +116,7 @@ public class PhraseController : MonoBehaviour {
 			//Debug.Log ("timestamp post parse:" + tempTimeStamp);
 			int nLoc = line.IndexOf("N:")+2;
 			int pLoc = line.IndexOf(":P");
+			Debug.Log ("Line" + count+ "nLoc: " + nLoc +"pLoc" + "pLoc");
 			string noteP = line.Substring(nLoc, pLoc-nLoc);
 			//Debug.Log (" "+noteP);
 			tempNotePattern = int.Parse(noteP);
@@ -131,8 +136,10 @@ public class PhraseController : MonoBehaviour {
 	public bool SpawnPhrases(){
 		noteCatchers = GameObject.FindGameObjectsWithTag ("NoteCatcher");
 		//Build the first 25 notes of the song
-		for(int i=0; i<250; i++){
+		//while(e.MoveNext()){
 
+
+		for(int i = 0; i<25; i++){
 			SpawnNextNote ();
 		}
 

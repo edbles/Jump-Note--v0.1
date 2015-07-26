@@ -1,14 +1,15 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\PhraseController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Resources\ScoreSheets\GamesSeriouslyLeft.txt">
     <Files>
-      <File FileName="Assets\Beat Detection\Example\BeatDetectionExample.cs" Line="26" Column="33" />
-      <File FileName="Assets\Scripts\PhraseController.cs" Line="134" Column="21" />
+      <File FileName="Assets\Scripts\PhraseController.cs" Line="108" Column="11" />
+      <File FileName="Assets\Beat Detection\Example\BeatDetectionExample.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Phrase.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Note.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Conductor.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Static.cs" Line="1" Column="1" />
-      <File FileName="Assets\ScoreSheets\GamesSeriouslyLeft.txt" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\HUDScript.cs" Line="19" Column="2" />
+      <File FileName="Assets\Resources\ScoreSheets\GamesSeriouslyLeft.txt" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

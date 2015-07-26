@@ -208,7 +208,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Priority: 128
   DopplerLevel: 1
@@ -289,7 +289,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Priority: 128
   DopplerLevel: 1
@@ -557,7 +557,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: 69d99772dabd676468d6f8fb8ce9becb, type: 2}
       propertyPath: missedNotes
-      value: 1000
+      value: 30
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 69d99772dabd676468d6f8fb8ce9becb, type: 2}
@@ -685,45 +685,18 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 1
+    m_Alignment: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Score:'
+  m_Text: "P1 Score:\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tP2 Score"
 --- !u!222 &1117835514
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1117835507}
---- !u!1 &1121433342
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1121433343}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1121433343
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1121433342}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 9
 --- !u!1 &1125639648
 GameObject:
   m_ObjectHideFlags: 0
@@ -872,7 +845,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: 69d99772dabd676468d6f8fb8ce9becb, type: 2}
       propertyPath: missedNotes
-      value: 1000
+      value: 30
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 69d99772dabd676468d6f8fb8ce9becb, type: 2}
@@ -944,8 +917,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aff12030d4ed3254a908d574f6d8168e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leftScoreSheet: GamesSeriouslyLeft.txt
-  rightScoreSheet: GamesSeriouslyRight.txt
+  leftScoreSheet: {fileID: 4900000, guid: 28b3889c948a9a846a965118bcbc6d2b, type: 3}
+  rightScoreSheet: {fileID: 4900000, guid: 5f75db61a0eaf1549a2c8526942ae96d, type: 3}
   scoreDirectory: C:\Users\edbles\Documents\Game Making Practice\Jump Note\Assets\ScoreSheets\
   conductor: {fileID: 0}
   samplePhrase: {fileID: 11474678, guid: 56c70c6e56e295140bb062113a60a0d7, type: 2}
@@ -962,6 +935,33 @@ BoxCollider2D:
   m_Offset: {x: 2.69907787e-06, y: .0679176003}
   serializedVersion: 2
   m_Size: {x: 18.8069458, y: .904092968}
+--- !u!1 &1968814495
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1968814496}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1968814496
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1968814495}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
 --- !u!1 &2028040176
 GameObject:
   m_ObjectHideFlags: 0

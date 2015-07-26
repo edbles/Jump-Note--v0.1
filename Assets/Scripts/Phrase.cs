@@ -132,10 +132,11 @@ public class Phrase : MonoBehaviour {
 
 	public void SelfDestruct(bool wasPlayed){
 
+		bool isLeft = noteCatchPos < 0;
 		//check if the note is being removed because it was succesfully captured by a player
 		if (wasPlayed) {
 			GameObject hudScript = GameObject.FindWithTag ("HUD");
-			hudScript.GetComponent<HUDScript> ().IncreaseScore (1);
+			hudScript.GetComponent<HUDScript> ().IncreaseScore (1, isLeft);
 			GameObject phraseC = GameObject.FindGameObjectWithTag("PhraseController");
 			phraseC.GetComponent<PhraseController>().SpawnNextNote();
 

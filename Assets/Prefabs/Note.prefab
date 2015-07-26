@@ -73,7 +73,7 @@ MonoBehaviour:
   played: 0
   isActive: 0
   noteSprites:
-  - {fileID: 21300000, guid: c38f2b1ec81b2b54bbdcf1fb8f55fa1b, type: 3}
+  - {fileID: 21300000, guid: 00d17cad9eae7c84a8927e0078ce198f, type: 3}
   - {fileID: 21300000, guid: c3bb290694a4e9647870af952663183f, type: 3}
   - {fileID: 21300000, guid: d6a48a56d852ae14085e21937849be12, type: 3}
   - {fileID: 21300000, guid: 983a5ffb74e6fea4aa0d5b8e34eb8590, type: 3}
